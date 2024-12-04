@@ -12,16 +12,16 @@
           :class="['card', { flipped: card.flipped || card.matched }]"
           @click="flipCard(index)"
         >
-          <div class="card-front">
-            {{ card.matched || card.flipped ? card.content : "" }}
-          </div>
           <!-- <div class="card-front">
+            {{ card.matched || card.flipped ? card.content : "" }}
+          </div> -->
+          <div class="card-front">
             <img
               v-if="card.matched || card.flipped"
               :src="card.content"
               alt="Memory Card Image"
             />
-          </div> -->
+          </div>
           <div class="card-back"></div>
         </div>
       </div>
@@ -69,14 +69,14 @@ export default {
   },
   methods: {
     initializeGame() {
-      const totalCards = 12;
-      const cardValues = Array.from(
-        { length: totalCards / 2 },
-        (_, i) => i + 1
-      );
-      // const cardValues = Array.from({ length: totalCards / 2 }, (_, i) =>
-      //   require(`@/assets/memory-game/${i + 1}.jpg`)
+      const totalCards = 20;
+      // const cardValues = Array.from(
+      //   { length: totalCards / 2 },
+      //   (_, i) => i + 1
       // );
+      const cardValues = Array.from({ length: totalCards / 2 }, (_, i) =>
+        require(`@/assets/memory-game/${i + 1}.jpg`)
+      );
       const shuffledValues = [...cardValues, ...cardValues].sort(
         () => Math.random() - 0.5
       );
@@ -183,7 +183,7 @@ memory
 .card-grid {
   display: grid;
   gap: 10px 20px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .card {
@@ -203,44 +203,44 @@ memory
   transition: transform 0.6s;
 }
 
-// .card-front {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   transform: rotateY(180deg);
-//   visibility: hidden;
-//   color: #e83c3c;
-// }
-
-// .card-front img {
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 8px;
-//   object-fit: cover;
-//   display: block;
-// }
-
 .card-front {
-  background-color: white;
-  border: 1px solid #0b2e44;
-  color: #0b2e44;
-  transform: rotateY(180deg);
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: rotateY(180deg);
+  visibility: hidden;
+  color: #e83c3c;
 }
 
-.card-back {
-  background-color: #0b2e44;
-  transform: rotateY(0deg);
+.card-front img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
 }
+
+// .card-front {
+//   background-color: white;
+//   border: 1px solid #0b2e44;
+//   color: #0b2e44;
+//   transform: rotateY(180deg);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
 // .card-back {
-//   background-image: url("@/assets/memory-game/back.jpg");
-//   background-size: cover;
-//   background-position: center;
+//   background-color: #0b2e44;
 //   transform: rotateY(0deg);
 // }
+
+.card-back {
+  background-image: url("@/assets/memory-game/back.png");
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(0deg);
+}
 
 .card.flipped .card-front,
 .card.matched .card-front {
@@ -270,8 +270,8 @@ memory
   border: 2px solid #e83c3c;
   color: #e83c3c;
   font-weight: bold;
-  &:hover{
-    background:#e83c3c;
+  &:hover {
+    background: #e83c3c;
     color: white;
   }
 }
